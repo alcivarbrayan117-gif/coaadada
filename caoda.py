@@ -1,53 +1,58 @@
-def analizar_numeros(numeros):
-    """
-    Analiza una lista de números y devuelve estadísticas.
-    """
-    if numeros is None or len(numeros) == 0:
-        raise ValueError("La lista no puede estar vacía")
+def procesar_datos(datos):
+    resultado = 0
+    resultado = 0  # variable duplicada (code smell)
 
-    suma = 0
-    maximo = numeros[0]
-    minimo = numeros[0]
-    pares = 0
-    impares = 0
-
-    for num in numeros:
-        suma += num
-
-        if num > maximo:
-            maximo = num
-        if num < minimo:
-            minimo = num
-
-        if num % 2 == 0:
-            pares += 1
+    if datos is None:
+        return None
+    else:
+        if len(datos) == 0:
+            return None
         else:
-            impares += 1
+            if len(datos) > 0:
+                for i in range(len(datos)):
+                    if datos[i] > 0:
+                        if datos[i] % 2 == 0:
+                            resultado = resultado + datos[i]
+                        else:
+                            if datos[i] % 3 == 0:
+                                resultado = resultado + datos[i]
+                            else:
+                                if datos[i] % 5 == 0:
+                                    resultado = resultado + datos[i]
+                                else:
+                                    resultado = resultado + 0
+                    else:
+                        if datos[i] == 0:
+                            resultado = resultado + 0
+                        else:
+                            resultado = resultado - datos[i]
 
-    promedio = suma / len(numeros)
-
-    return {
-        "suma": suma,
-        "promedio": promedio,
-        "maximo": maximo,
-        "minimo": minimo,
-        "pares": pares,
-        "impares": impares
-    }
+    return resultado
 
 
-def imprimir_resultados(resultado):
-    """
-    Imprime los resultados del análisis.
-    """
-    for clave, valor in resultado.items():
-        print(f"{clave}: {valor}")
+def imprimir(resultado):
+    if resultado is not None:
+        if resultado >= 0:
+            if resultado >= 100:
+                print("Resultado muy alto")
+            else:
+                if resultado >= 50:
+                    print("Resultado medio")
+                else:
+                    if resultado >= 10:
+                        print("Resultado bajo")
+                    else:
+                        print("Resultado muy bajo")
+        else:
+            print("Resultado negativo")
+    else:
+        print("Sin resultado")
 
 
 def main():
-    datos = [10, 3, 7, 8, 15, 22, 9]
-    resultado = analizar_numeros(datos)
-    imprimir_resultados(resultado)
+    datos = [10, -3, 0, 7, 15, 22, 9, 30]
+    r = procesar_datos(datos)
+    imprimir(r)
 
 
 if __name__ == "__main__":
